@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamPro - Online Examination Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f5f7fb;
+    }
+    .timer-animation {
+        animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+</style>
+<body>
+    <div id="app" class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="text-2xl font-bold text-blue-600">ExamPro</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-600">John Doe</span>
+                        <button class="text-gray-600 hover:text-gray-900">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <!-- Exam Header -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-gray-900">JavaScript Fundamentals Exam</h1>
+                        <p class="text-gray-600 mt-1">20 Questions • 45 Minutes</p>
+                    </div>
+                    <div class="timer-animation bg-red-100 text-red-600 px-4 py-2 rounded-full font-semibold">
+                        <span id="timer">45:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Section -->
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm font-medium text-gray-500">Question 1 of 20</span>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">2 points</span>
+                    </div>
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">What is the output of console.log(typeof([])) in JavaScript?</h2>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="q1" class="h-4 w-4 text-blue-600">
+                            <span class="ml-3">Array</span>
+                        </label>
+                        <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="q1" class="h-4 w-4 text-blue-600">
+                            <span class="ml-3">Object</span>
+                        </label>
+                        <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="q1" class="h-4 w-4 text-blue-600">
+                            <span class="ml-3">undefined</span>
+                        </label>
+                        <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="q1" class="h-4 w-4 text-blue-600">
+                            <span class="ml-3">string</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-6">
+                    <button class="bg-gray-100 text-gray-600 px-6 py-2 rounded-lg hover:bg-gray-200" disabled>
+                        Previous
+                    </button>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                        Next Question
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Timer functionality
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            let countdown = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(countdown);
+                    alert("Time's up! Your exam will be submitted automatically.");
+                    // Here you would typically submit the exam
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            let fortyFiveMinutes = 45 * 60,
+                display = document.querySelector('#timer');
+            startTimer(fortyFiveMinutes, display);
+        };
+
+        // Handle radio button selection
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Here you would typically save the answer
+                console.log('Selected answer:', this.nextElementSibling.textContent);
+            });
+        });
+
+        // Example questions data structure
+        const questions = [
+            {
+                id: 1,
+                question: "What is the output of console.log(typeof([]))?",
+                options: ["Array", "Object", "undefined", "string"],
+                correct: 1,
+                points: 2
+            }
+            // Add more questions here
+        ];
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
